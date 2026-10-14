@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CloudSphere | AWS S3 Static Website</title>
+
+    <meta name="description"
+          content="A modern static website demonstrating cloud hosting using Amazon S3.">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #38bdf8;
+            --dark: #07111f;
+            --card: rgba(255, 255, 255, 0.07);
+            --text: #e2e8f0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 22px 8%;
+            border-bottom: 1px solid #243247;
+            background: rgba(7, 17, 31, 0.95);
+        }
+
+        .logo {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            min-height: 78vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 8%;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #123c61 0%,
+                    #07111f 65%
+                );
+        }
+
+        .badge {
+            padding: 7px 16px;
+            border: 1px solid #38bdf8;
+            border-radius: 30px;
+            color: var(--primary);
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: clamp(38px, 6vw, 70px);
+            line-height: 1.15;
+            max-width: 900px;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            max-width: 680px;
+            color: #aabbd0;
+            font-size: 17px;
+            margin-bottom: 32px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 13px 25px;
+            background: var(--primary);
+            color: #07111f;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px #38bdf844;
+        }
+
+        section {
+            padding: 75px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            text-align: center;
+            color: #94a3b8;
+            max-width: 650px;
+            margin: 0 auto 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(
+                auto-fit, minmax(220px, 1fr)
+            );
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--card);
+            padding: 28px;
+            border: 1px solid #25364b;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary);
+        }
+
+        .card .icon {
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #aabbd0;
+            font-size: 14px;
+        }
+
+        .architecture {
+            background: #0b1728;
+        }
+
+        .steps {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .step {
+            padding: 20px;
+            margin: 15px 0;
+            background: var(--card);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+        }
+
+        .step strong {
+            color: var(--primary);
+        }
+
+        .cta {
+            text-align: center;
+            background: linear-gradient(
+                135deg, #0c2945, #10213b
+            );
+            border-radius: 18px;
+            padding: 45px 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #243247;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .hero {
+                min-height: 65vh;
+            }
+
+            section {
+                padding: 55px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">☁ CloudSphere</div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#features">Features</a>
+            <a href="#architecture">Architecture</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="badge">
+                AWS CLOUD COMPUTING PROJECT
+            </div>
+
+            <h1>
+                Powering the Web with
+                <span>Amazon S3</span>
+            </h1>
+
+            <p>
+                A modern, lightweight static website built with
+                HTML and CSS, designed to demonstrate scalable
+                cloud hosting using Amazon Simple Storage Service.
+            </p>
+
+            <a href="#features" class="button">
+                Explore the Project →
+            </a>
+        </section>
+
+        <section id="features">
+            <h2 class="section-title">
+                Built for the Cloud
+            </h2>
+
+            <p class="section-description">
+                Discover the core capabilities behind a simple,
+                reliable, and cost-conscious static website.
+            </p>
+
+            <div class="cards">
+                <article class="card">
+                    <div class="icon">⚡</div>
+                    <h3>Fast Delivery</h3>
+                    <p>
+                        Serve static HTML, CSS, JavaScript, and
+                        media files directly from cloud storage.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="icon">☁️</div>
+                    <h3>Cloud Storage</h3>
+                    <p>
+                        Store website assets in an Amazon S3
+                        bucket without managing web servers.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="icon">📈</div>
+                    <h3>Scalable Design</h3>
+                    <p>
+                        Build a foundation that can be extended
+                        with CloudFront and custom domain names.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <div class="icon">🔒</div>
+                    <h3>Security First</h3>
+                    <p>
+                        Use least-privilege access, appropriate
+                        bucket policies, and HTTPS through
+                        CloudFront for a production deployment.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="architecture" id="architecture">
+            <h2 class="section-title">
+                Project Architecture
+            </h2>
+
+            <p class="section-description">
+                Understand how a static website moves from
+                source code to a cloud-hosted experience.
+            </p>
+
+            <div class="steps">
+                <div class="step">
+                    <strong>01 — Source Code</strong>
+                    <p>
+                        Create and maintain the website using
+                        HTML and CSS in GitHub.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <strong>02 — Amazon S3</strong>
+                    <p>
+                        Upload the website files to an S3 bucket
+                        and configure static website hosting.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <strong>03 — CloudFront (Optional)</strong>
+                    <p>
+                        Add a content delivery network for HTTPS,
+                        caching, and global content delivery.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <strong>04 — Live Website</strong>
+                    <p>
+                        Access the deployed site through the
+                        configured website endpoint or domain.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="cta">
+                <h2>Building in the Cloud</h2>
+
+                <p style="margin: 15px 0 25px; color: #aabbd0;">
+                    Learn. Build. Deploy. Scale.
+                </p>
+
+                <a
+                    href="https://aws.amazon.com/s3/"
+                    class="button"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Explore Amazon S3 →
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            © 2026 CloudSphere | AWS S3 Static Website Hosting
+        </p>
+        <p>Built with HTML and CSS</p>
+    </footer>
+
+</body>
+</html>
